@@ -7,9 +7,9 @@ app = Flask(__name__)
 model = joblib.load("model.pkl")
 
 
-@app.route("/predict", methods=["POST", "GET"])
+@app.route("/predict", methods=["POST"])
 def predict():
-    data = request.get_data()
+    data = request.get_json()
 
     if "steps" not in data:
         return jsonify(error="The 'steps' field is required"), 400
