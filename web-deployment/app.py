@@ -4,7 +4,7 @@ import joblib
 app = Flask(__name__)
 
 # Load the saved ARIMA model
-model = joblib.load("arima_model.pkl")
+model = joblib.load("model.pkl")
 
 
 @app.route("/predict", methods=["POST", "GET"])
