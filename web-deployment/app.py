@@ -3,8 +3,7 @@ import joblib
 
 app = Flask(__name__)
 
-# Load the saved ARIMA model
-model = joblib.load("model.pkl")
+model = joblib.load("arima_model.pkl")
 
 
 @app.route("/predict", methods=["POST"])
@@ -14,8 +13,14 @@ def predict():
     if "steps" not in data:
         return jsonify(error="The 'steps' field is required"), 400
 
+    if not isinstance(data["steps"], int):
+        return jsonify(error="The 'steps' field must be an integer"), 400
+
+    if data["steps"] < 1:
+        return jsonify(error="The 'steps' field must be greater than 0"), 400
+
     steps = data["steps"]
-    forecast = model.predict(n_periods=steps)
+    forecast = model.forecast(steps=steps)
     forecast_list = forecast.tolist()
 
     return jsonify(forecast=forecast_list)
