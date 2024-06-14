@@ -1,0 +1,15 @@
+# Deployment
+
+The deployment code resides in `web-deployment`.
+
+### Endpoint
+
+`POST  https://stockmarketmodel.onrender.com/predict`
+
+### Payload
+```json
+{
+    "steps": 3
+}
+```
+The steps field represent the number of days for which you want to get the prediction
